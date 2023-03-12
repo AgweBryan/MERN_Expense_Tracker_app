@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 require("dotenv").config();
 
@@ -12,4 +13,11 @@ app.use("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.listen(process.env.PORT, () => console.log("Server running on port 5000"));
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then((_) => {
+    app.listen(process.env.PORT, () =>
+      console.log("Server running on port 5000")
+    );
+  })
+  .catch((err) => console.log(err));

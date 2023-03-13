@@ -6,12 +6,14 @@ require("dotenv").config();
 
 const app = express();
 
+const exerciseRoutes = require("./routes/exercise");
+const userRoutes = require("./routes/user");
+
 app.use(cors());
 app.use(express.json());
 
-app.use("/", (req, res) => {
-  res.send("Hello World");
-});
+app.use("/exercises", exerciseRoutes);
+app.use("/users", userRoutes);
 
 mongoose
   .connect(process.env.MONGODB_URI)
